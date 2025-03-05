@@ -361,6 +361,7 @@
             box-shadow: 0 8px 20px rgba(255,209,102,0.3);
             border: none;
             transition: all 0.3s ease;
+	    z-index: 999;
         }
 
         .manage-btn:hover {
@@ -459,13 +460,42 @@
                 padding: 30px 20px;
             }
 
-            .cart-btn {
-                bottom: 20px;
-                right: 20px;
-                padding: 18px;
-                font-size: 24px;
+            .cart-btn,
+    .manage-btn,
+    .history-btn {
+        bottom: auto;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        padding: 15px;
+        font-size: 24px;
+    }
+
+    .cart-btn {
+        bottom: 20px;
+    }
+
+    .manage-btn {
+        bottom: 100px;
+    }
+
+    .history-btn {
+        bottom: 180px;
+    }
+
+    /* 调整按钮间距 */
+    .cart-btn:hover,
+    .manage-btn:hover,
+    .history-btn:hover {
+        transform: scale(1.1); /* 统一悬停效果 */
+    }
             }
-        }
+            .cart-btn,
+.manage-btn,
+.history-btn {
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+        
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -510,7 +540,7 @@
     <!-- 管理模态框 -->
     <div class="manage-modal" id="manage-modal">
         <div class="cart-header">
-            <h2 style="color: var(--primary-color);">🍴 食物管理</h2>
+            <h2 style="color: var(--primary-color);">🍴 宝贝专属的饮食管理</h2>
             <span class="close-btn" onclick="closeManage()">&times;</span>
         </div>
         <form class="food-form" id="food-form">
@@ -525,8 +555,8 @@
             <input type="number" id="food-kisses" placeholder="亲亲数量" min="1" required>
             <textarea id="food-desc" placeholder="食物描述" rows="3" required></textarea>
             <div class="form-buttons">
-                <button type="submit" class="save-btn">💾 保存</button>
-                <button type="button" class="delete-btn" onclick="deleteFood()">🗑️ 删除</button>
+                <button type="submit" class="save-btn">保存你的新美食！</button>
+                <button type="button" class="delete-btn" onclick="deleteFood()">删除不好吃的！</button>
             </div>
         </form>
     </div>
@@ -767,7 +797,7 @@
                 showToast('购物车是空的哦宝贝！');
                 return;
             }
-            if (confirm(`确认下单？总计需要 ${document.getElementById('total-kisses').textContent} 个亲亲！`)) {
+            if (confirm(`确认下单？总计需要宝贝的 ${document.getElementById('total-kisses').textContent} 个亲亲！`)) {
                 localStorage.removeItem('cart');
                 cart = [];
                 updateCartBadge();
@@ -813,7 +843,7 @@
 
 <div class="history-modal" id="history-modal">
     <div class="cart-header">
-        <h2 style="color: var(--primary-color);">⏳ 历史订单</h2>
+        <h2 style="color: var(--primary-color);">⏳ 宝贝的历史订单</h2>
         <span class="close-btn" onclick="closeHistory()">&times;</span>
     </div>
     <div id="history-items"></div>
@@ -823,23 +853,31 @@
     /* 新增历史记录样式 */
     .history-btn {
         position: fixed;
-        bottom: 240px;
-        right: 40px;
-        background: #6EC3F2;
+        bottom: 180px;
+        right: 20px;
+        background: #91fcba;
         color: white;
         padding: 22px;
         font-size: 28px;
         border-radius: 50%;
         cursor: pointer;
-        box-shadow: 0 8px 20px rgba(110,195,242,0.3);
+        box-shadow: 0 8px 20px rgba(0, 255, 149, 0.3);
         border: none;
         transition: all 0.3s ease;
-        z-index: 999;
+        z-index: 998;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* 调整padding */
+        padding: 20px; /* 统一padding */
+        /* 确保按钮宽高一致 */
+        width: 64px;
+        height: 64px;
     }
 
     .history-btn:hover {
         transform: scale(1.15) rotate(15deg);
-        background: #5DB0E0;
+        background: #0ba72d;
     }
 
     .history-modal {
@@ -935,7 +973,7 @@
         }
         
         const totalKisses = calculateTotalKisses();
-        if (confirm(`确认下单？总计需要 ${totalKisses} 个亲亲！`)) {
+        if (confirm(`确认下单？总计需要宝贝的 ${totalKisses} 个亲亲！`)) {
             // 保存到历史记录
             orderHistory.push({
                 timestamp: new Date().getTime(),
