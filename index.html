@@ -602,7 +602,22 @@
         // 管理相关功能
         let currentEditItem = null;
 
-        document.getElementById('manage-btn').addEventListener('click', openManage);
+        document.getElementById('manage-btn').addEventListener('click', () => {
+    // 清空表单
+    resetForm();
+    // 弹出名称输入框
+    const foodName = prompt("请宝贝输入要操作的美食名称（新建请留空）：");
+    
+    if (foodName !== null) {
+        if (foodName) {
+            // 编辑现有菜品
+            editFood(foodName);
+        } else {
+            // 新建菜品
+            openManage();
+        }
+    }
+});
         document.getElementById('food-form').addEventListener('submit', saveFood);
 
         function openManage() {
@@ -616,16 +631,18 @@
         }
 
         function editFood(name) {
-            currentEditItem = foodData.find(item => item.name === name);
-            if (currentEditItem) {
-                document.getElementById('food-name').value = currentEditItem.name;
-                document.getElementById('food-category').value = currentEditItem.category;
-                document.getElementById('food-img').value = currentEditItem.img;
-                document.getElementById('food-kisses').value = currentEditItem.kisses;
-                document.getElementById('food-desc').value = currentEditItem.desc;
-                openManage();
-            }
-        }
+    currentEditItem = foodData.find(item => item.name === name);
+    if (currentEditItem) {
+        document.getElementById('food-name').value = currentEditItem.name;
+        document.getElementById('food-category').value = currentEditItem.category;
+        document.getElementById('food-img').value = currentEditItem.img;
+        document.getElementById('food-kisses').value = currentEditItem.kisses;
+        document.getElementById('food-desc').value = currentEditItem.desc;
+        openManage();
+    } else {
+        showToast("宝贝找不到这个美食哦，不然新建一个嘿嘿嘿");
+    }
+}
 
         function saveFood(e) {
             e.preventDefault();
@@ -650,18 +667,36 @@
             localStorage.setItem('foodData', JSON.stringify(foodData));
             showCategory('all');
             closeManage();
-            showToast('食物保存成功！');
+            showToast('食物保存成功了宝贝！');
         }
 
         function deleteFood() {
-            if (currentEditItem && confirm(`确定要删除 ${currentEditItem.name} 吗？`)) {
-                foodData = foodData.filter(item => item.name !== currentEditItem.name);
-                localStorage.setItem('foodData', JSON.stringify(foodData));
-                showCategory('all');
-                closeManage();
-                showToast('食物已删除！');
-            }
-        }
+    // 获取用户输入的食物名称
+    const foodName = prompt("宝贝请输入要删除的美食：");
+    
+    if (!foodName) return;
+
+    // 查找对应食物
+    const targetIndex = foodData.findIndex(item => item.name === foodName);
+    
+    if (targetIndex === -1) {
+        showToast("找不到这个美食哦宝贝～");
+        return;
+    }
+
+    // 二次确认
+    if (confirm(`确定要删除「${foodName}」吗？会永远消失哦！😱`)) {
+        // 从数组中删除
+        foodData.splice(targetIndex, 1);
+        
+        // 更新本地存储
+        localStorage.setItem('foodData', JSON.stringify(foodData));
+        
+        // 刷新列表
+        showCategory('all');
+        showToast(`${foodName} 已经被吃掉啦！`);
+    }
+}
 
         function resetForm() {
             document.getElementById('food-form').reset();
