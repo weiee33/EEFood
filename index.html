@@ -15,32 +15,42 @@
 
         /* 优化后的Logo样式 */
         .logo-container {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none; /* 防止点击干扰 */
+}
 
-        .logo {
-            width: 80px;
-            height: 80px;
-            border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(110, 195, 242, 0.3);
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
+.logo {
+    width: 100px;
+    height: 100px;
+    border-radius: 25px;
+    background: linear-gradient(45deg, 
+        rgba(110, 195, 242, 0.9), 
+        rgba(255, 107, 157, 0.9));
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    color: white;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid white;
+    animation: float 3s ease-in-out infinite;
+}
 
         .logo:hover {
             transform: rotate(8deg) scale(1.05);
         }
+        @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
 
         body {
             font-family: 'Comic Neue', cursive;
@@ -439,13 +449,31 @@
             transform: scale(1.05);
             box-shadow: 0 2px 8px rgba(255,209,102,0.3);
         }
+        @media (min-width: 769px) {
+    .logo-container {
+        top: 30px;
+        left: calc(250px + 50%); /* 侧边栏宽度 + 居中 */
+        transform: translateX(-50%);
+    }
+    
+    .logo:hover {
+        transform: scale(1.1) rotate(8deg);
+        box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+    }
+}
         @media (max-width: 768px) {
             .logo-container {
-                position: absolute;
-                top: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-            }
+        top: 15px;
+        width: 70px;
+        height: 70px;
+    }
+    
+    .logo {
+        width: 70px;
+        height: 70px;
+        font-size: 20px;
+        border-radius: 18px;
+    }
 
             .sidebar {
                 position: relative;
@@ -490,6 +518,23 @@
         transform: scale(1.1); /* 统一悬停效果 */
     }
             }
+            body.scrolled .logo-container {
+    top: 10px;
+    opacity: 0.9;
+    transform: translateX(-50%) scale(0.9);
+}
+
+/* 侧边栏联动 */
+.sidebar {
+    padding-top: 140px; /* 给Logo留出空间 */
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        padding-top: 100px;
+    }
+}
+            
             .cart-btn,
 .manage-btn,
 .history-btn {
@@ -501,7 +546,9 @@
 </head>
 <body>
     <!-- Logo容器 -->
-    <img src="logo.png.webp" alt="EEFood Logo" class="logo" onclick="window.location.reload()">
+    <div class="logo-container">
+        <img src="logo.png.webp" alt="EEFood Logo" class="logo" onclick="window.location.reload()">
+    </div>
 
     <div class="container">
         <div class="sidebar">
@@ -562,6 +609,40 @@
     </div>
 
     <script>
+        // 优化滚动监听
+let lastScroll = 0;
+let ticking = false;
+
+function updateLogo() {
+    const currentScroll = window.pageYOffset;
+    const logoContainer = document.querySelector('.logo-container');
+    
+    if (currentScroll > 100) {
+        logoContainer.style.opacity = Math.max(0, 1 - (currentScroll - 100) / 200);
+    } else {
+        logoContainer.style.opacity = 1;
+    }
+    
+    lastScroll = currentScroll;
+    ticking = false;
+}
+
+window.addEventListener('scroll', () => {
+    if (!ticking) {
+        window.requestAnimationFrame(updateLogo);
+        ticking = true;
+    }
+});
+
+// 点击返回顶部
+document.querySelector('.logo').addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+    document.querySelector('.logo-container').style.opacity = 1;
+});
+        
         let foodData = JSON.parse(localStorage.getItem('foodData')) || [
             { 
                 name: "云朵舒芙蕾", 
@@ -606,7 +687,7 @@
     // 清空表单
     resetForm();
     // 弹出名称输入框
-    const foodName = prompt("请宝贝输入要操作的美食名称（新建请留空）：");
+    const foodName = prompt("请宝贝直接点击下方的OK！：");
     
     if (foodName !== null) {
         if (foodName) {
