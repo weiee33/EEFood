@@ -15,42 +15,42 @@
 
         /* 优化后的Logo样式 */
         .logo-container {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 999;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    pointer-events: none; /* 防止点击干扰 */
-}
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 999;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none; /* 防止点击干扰 */
+        }
 
-.logo {
-    width: 100px;
-    height: 100px;
-    border-radius: 25px;
-    background: linear-gradient(45deg, 
-        rgba(110, 195, 242, 0.9), 
-        rgba(255, 107, 157, 0.9));
-    backdrop-filter: blur(5px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px;
-    color: white;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: 2px solid white;
-    animation: float 3s ease-in-out infinite;
-}
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 25px;
+            background: linear-gradient(45deg, 
+          rgba(110, 195, 242, 0.9), 
+          rgba(255, 107, 157, 0.9));
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+            animation: float 3s ease-in-out infinite;
+        }
 
         .logo:hover {
             transform: rotate(8deg) scale(1.05);
         }
         @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
+            0%, 100% { transform: translateY(0); }
+            0% { transform: translateY(-10px); }
+        }
 
         body {
             font-family: 'Comic Neue', cursive;
@@ -450,30 +450,30 @@
             box-shadow: 0 2px 8px rgba(255,209,102,0.3);
         }
         @media (min-width: 769px) {
-    .logo-container {
-        top: 30px;
-        left: calc(250px + 50%); /* 侧边栏宽度 + 居中 */
-        transform: translateX(-50%);
-    }
+            .logo-container {
+                top: 30px;
+                left: calc(250px + 50%); /* 侧边栏宽度 + 居中 */
+                transform: translateX(-50%);
+            }
     
-    .logo:hover {
-        transform: scale(1.1) rotate(8deg);
-        box-shadow: 0 12px 40px rgba(0,0,0,0.2);
-    }
-}
+            .logo:hover {
+                transform: scale(1.1) rotate(8deg);
+                box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+            }
+        }
         @media (max-width: 768px) {
             .logo-container {
-        top: 15px;
-        width: 70px;
-        height: 70px;
-    }
+                top: 15px;
+                width: 70px;
+                height: 70px;
+            }
     
-    .logo {
-        width: 70px;
-        height: 70px;
-        font-size: 20px;
-        border-radius: 18px;
-    }
+            .logo {
+                width: 70px;
+                height: 70px;
+                font-size: 20px;
+                border-radius: 18px;
+            }
 
             .sidebar {
                 position: relative;
@@ -489,57 +489,58 @@
             }
 
             .cart-btn,
-    .manage-btn,
-    .history-btn {
-        bottom: auto;
-        right: 20px;
-        width: 60px;
-        height: 60px;
-        padding: 15px;
-        font-size: 24px;
-    }
-
-    .cart-btn {
-        bottom: 20px;
-    }
-
-    .manage-btn {
-        bottom: 100px;
-    }
-
-    .history-btn {
-        bottom: 180px;
-    }
-
-    /* 调整按钮间距 */
-    .cart-btn:hover,
-    .manage-btn:hover,
-    .history-btn:hover {
-        transform: scale(1.1); /* 统一悬停效果 */
-    }
+            .manage-btn,
+            .history-btn {
+                bottom: auto;
+                right: 20px;
+                width: 60px;
+                height: 60px;
+                padding: 15px;
+                font-size: 24px;
             }
-            body.scrolled .logo-container {
-    top: 10px;
-    opacity: 0.9;
-    transform: translateX(-50%) scale(0.9);
-}
 
-/* 侧边栏联动 */
-.sidebar {
-    padding-top: 140px; /* 给Logo留出空间 */
-}
+            .cart-btn {
+                bottom: 20px;
+            }
 
-@media (max-width: 768px) {
-    .sidebar {
-        padding-top: 100px;
-    }
-}
+            .manage-btn {
+                bottom: 100px;
+            }
+
+            .history-btn {
+                bottom: 180px;
+            }
+
+            /* 调整按钮间距 */
+            .cart-btn:hover,
+            .manage-btn:hover,
+            .history-btn:hover {
+                transform: scale(1.1); /* 统一悬停效果 */
+            }
+        }
+
+        body.scrolled .logo-container {
+            top: 10px;
+            opacity: 0.9;
+            transform: translateX(-50%) scale(0.9);
+        }
+
+        /* 侧边栏联动 */
+        .sidebar {
+            padding-top: 140px; /* 给Logo留出空间 */
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                padding-top: 100px;
+            }
+        }
             
-            .cart-btn,
-.manage-btn,
-.history-btn {
-    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
+        .cart-btn,
+        .manage-btn,
+        .history-btn {
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
         
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
@@ -725,39 +726,36 @@ document.querySelector('.logo').addEventListener('click', () => {
     }
 }
 
-        function saveFood(e) {
-            e.preventDefault();
-            
-            const newItem = {
-                name: document.getElementById('food-name').value,
-                category: document.getElementById('food-category').value,
-                img: document.getElementById('food-img').value,
-                kisses: parseInt(document.getElementById('food-kisses').value),
-                desc: document.getElementById('food-desc').value
-            };
+function saveFood(e) {
+    e.preventDefault();
+    
+    const newItem = {
+        name: document.getElementById('food-name').value,
+        category: document.getElementById('food-category').value,
+        img: document.getElementById('food-img').value,
+        kisses: parseInt(document.getElementById('food-kisses').value),
+        desc: document.getElementById('food-desc').value
+    };
 
-            if (currentEditItem) {
-                // 更新现有食物
-                const index = foodData.findIndex(item => item.name === currentEditItem.name);
-                foodData[index] = newItem;
-            } else {
-                // 添加新食物
-                foodData.push(newItem);
-            }
+    if (currentEditItem) {
+        const index = foodData.findIndex(item => item.name === currentEditItem.name);
+        foodData[index] = newItem;
+    } else {
+        foodData.push(newItem);
+    }
 
-            localStorage.setItem('foodData', JSON.stringify(foodData));
-            showCategory('all');
-            closeManage();
-            showToast('食物保存成功了宝贝！');
-        }
+    localStorage.setItem('foodData', JSON.stringify(foodData));
+    showCategory('all'); // 刷新食物列表
+    closeManage();
+    showToast('食物保存成功了宝贝！');
+}
 
-        function deleteFood() {
-    // 获取用户输入的食物名称
+
+function deleteFood() {
     const foodName = prompt("宝贝请输入要删除的美食：");
     
     if (!foodName) return;
 
-    // 查找对应食物
     const targetIndex = foodData.findIndex(item => item.name === foodName);
     
     if (targetIndex === -1) {
@@ -765,19 +763,14 @@ document.querySelector('.logo').addEventListener('click', () => {
         return;
     }
 
-    // 二次确认
     if (confirm(`确定要删除「${foodName}」吗？会永远消失哦！😱`)) {
-        // 从数组中删除
         foodData.splice(targetIndex, 1);
-        
-        // 更新本地存储
         localStorage.setItem('foodData', JSON.stringify(foodData));
-        
-        // 刷新列表
-        showCategory('all');
+        showCategory('all'); // 刷新食物列表
         showToast(`${foodName} 已经被吃掉啦！`);
     }
 }
+
 
         function resetForm() {
             document.getElementById('food-form').reset();
@@ -909,18 +902,22 @@ document.querySelector('.logo').addEventListener('click', () => {
         }
     
         function checkout() {
-            if (cart.length === 0) {
-                showToast('购物车是空的哦宝贝！');
-                return;
-            }
-            if (confirm(`确认下单？总计需要宝贝的 ${document.getElementById('total-kisses').textContent} 个亲亲！`)) {
-                localStorage.removeItem('cart');
-                cart = [];
-                updateCartBadge();
-                closeCart();
-                showToast('下单成功！感谢宝贝的亲亲 💖');
-            }
-        }
+    if (cart.length === 0) {
+        showToast('购物车是空的哦宝贝！');
+        return;
+    }
+    
+    const totalKisses = calculateTotalKisses();
+    if (confirm(`确认下单？总计需要宝贝的 ${totalKisses} 个亲亲！`)) {
+        localStorage.removeItem('cart');
+        cart = [];
+        updateCartBadge();
+        closeCart();
+        showToast('下单成功！感谢宝贝的亲亲 💖');
+        window.location.reload(); // 刷新页面
+    }
+}
+
     
         function showToast(message) {
             const toast = document.createElement('div');
